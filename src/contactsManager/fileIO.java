@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class fileIO {
 
@@ -28,21 +29,20 @@ public class fileIO {
         }
     }
 
-    public static void addContactstoFile(ArrayList<String> list, String dir, String filename) throws IOException {
+    public static void addContactstoFile(HashMap<String, Long> list, String dir, String filename) throws IOException {
         Path filepath = Paths.get(dir, filename);
         Files.write(filepath, list, StandardOpenOption.APPEND);
     }
 
-    public static ArrayList<Contacts> makeContactList() {
-        ArrayList<Contacts> contacts = new ArrayList<>();
+    public static HashMap<String, Long> makeContactList() {
+        HashMap<String, Long> contacts = new HashMap<>();
         UI ui = new UI();
-        Contacts contact;
+
 
         do {
             String name = ui.getStringInput("Please enter contact name");
-            long phoneNumber = ui.getLonginput("Please enter contact's phone number");
-            contact = new Contacts(name, phoneNumber);
-            contacts.add(contact);
+            Long phoneNumber = ui.getLonginput("Please enter contact's phone number");
+            contacts.put(name, phoneNumber);
         } while (ui.yesNo("Would you like to enter another contact?"));
 
         return contacts;
@@ -56,10 +56,14 @@ public class fileIO {
         //the ui.getStringInput is from ui.java and is your run of the
         // mill sting scanner function.
 
-        ArrayList<Contacts> contacts = makeContactList();
+        HashMap<String, Long> contacts = makeContactList();
         System.out.println(contacts);
 
-        addContactstoFile(contacts, dir, filename);
+        try {
+            addContactstoFile(contacts, dir, filename);
+        }catch(Exception e){
+            System.out.println("thing");
+        }
 
     }
 }
