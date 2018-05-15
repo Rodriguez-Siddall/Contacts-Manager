@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 
 public class fileIO {
 
@@ -25,16 +28,38 @@ public class fileIO {
         }
     }
 
+    public static void addContactstoFile(ArrayList<String> list, String dir, String filename) throws IOException {
+        Path filepath = Paths.get(dir, filename);
+        Files.write(filepath, list, StandardOpenOption.APPEND);
+    }
+
+    public static ArrayList<Contacts> makeContactList() {
+        ArrayList<Contacts> contacts = new ArrayList<>();
+        UI ui = new UI();
+        Contacts contact;
+
+        do {
+            String name = ui.getStringInput("Please enter contact name");
+            long phoneNumber = ui.getLonginput("Please enter contact's phone number");
+            contact = new Contacts(name, phoneNumber);
+            contacts.add(contact);
+        } while (ui.yesNo("Would you like to enter another contact?"));
+
+        return contacts;
+    }
+
 
     public static void main(String[] args) {
         UI ui = new UI();
-
+        String dir = "contacts";
+        String filename = "contacts.txt";
         //the ui.getStringInput is from ui.java and is your run of the
         // mill sting scanner function.
-        createFileIfNoExists(
-                ui.getStringInput("Folder Name"),
-                ui.getStringInput("File name")
-        );
+
+        ArrayList<Contacts> contacts = makeContactList();
+        System.out.println(contacts);
+
+        addContactstoFile(contacts, dir, filename);
 
     }
 }

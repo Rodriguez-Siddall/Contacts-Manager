@@ -8,14 +8,23 @@ public class UI {
    public UI(){scanner = new Scanner(System.in).useDelimiter("\n");}
 
     public String getStringInput(String command) {
-        java.util.Scanner sc = new java.util.Scanner(System.in);
         System.out.println(command);
-        return sc.nextLine();
+        return scanner.next();
     }
 
-    public float getFloatinput(String command) {
-        java.util.Scanner sc = new java.util.Scanner(System.in);
+    public long getLonginput(String command) {
         System.out.println(command);
-        return sc.nextFloat();
+        return scanner.nextLong();
     }
+
+    public boolean yesNo(String prompt) {
+        System.out.print(prompt);
+        String userInput = scanner.next();
+        if ("y".equalsIgnoreCase(userInput) || "yes".equalsIgnoreCase(userInput)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
