@@ -1,5 +1,7 @@
 package contactsManager;
 
+import java.util.Scanner;
+
 public class Contacts {
 
 
@@ -18,6 +20,7 @@ public class Contacts {
     public long getPhoneNumber() {
         return phoneNumber;
     }
+
 
 
 }
