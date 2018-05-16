@@ -24,10 +24,10 @@ public class Contacts {
     public String convertNumber(long phNum){
        String data = Long.toString(phNum);
 
-    if (data.length() == 9) {
+    if (data.length() == 10) {
         String areaNum =data.substring(0,3);
         String exchangeNum = data.substring(3, 6);
-        String num = data.substring(5, 9);
+        String num = data.substring(6, 10);
         return areaNum + "-" + exchangeNum + "-" + num;
     }else if (data.length() == 7){
         String areaNum =data.substring(0, 3);
@@ -39,6 +39,6 @@ public class Contacts {
 
     @Override
     public String toString() {
-        return String.format("%-20s  |  %-12s", name, convertNumber(phoneNumber));
+        return String.format("%-20s | %-20s |", name, convertNumber(phoneNumber));
     }
 }
