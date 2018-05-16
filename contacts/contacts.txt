@@ -1,7 +1,4 @@
-Ronald McDonald       |  1234567
-Cindy Lou Who         |  2345678     
-Emily Rodriguez       |  9565302115  
-John Lennon           |  2345678
-lksdjf;asdlFJ         |  123-456-67890
-;asldfjk              |  123-567     
-testy mc testerson    |  123-4567    
+Bob Belcher          | 234-3345             |
+Freddy Kruger        | 666-666-66666        |
+Alex                 | 956-607-0353         |
+Jenny                | 867-5309             |

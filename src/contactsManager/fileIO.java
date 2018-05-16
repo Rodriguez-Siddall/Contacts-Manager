@@ -41,6 +41,7 @@ public class fileIO {
         for (String item :list){
             if (item.contains(search)){
                 System.out.println(item);
+                System.out.println();
                 return true;
             }
         }
@@ -60,6 +61,7 @@ public class fileIO {
         list.remove(itemID);
 
         addContactstoFile(list, dir, filename);
+        System.out.println();
     }
 
     public static void readAllNames(String dir,String dataFile)throws IOException{
@@ -68,11 +70,12 @@ public class fileIO {
 
 
         System.out.println();
-        System.out.println(String.format("%-20s | %-12s |" , "Name", "Phone Number"));
-        System.out.println("------------------------------------|");
+        System.out.println(String.format("%-20s | %-20s |" , "Name", "Phone Number"));
+        System.out.println("--------------------------------------------|");
         for (String item :list){
                 System.out.println(item);
         }
+        System.out.println();
     }
 
     public static ArrayList<String> contactsToString(ArrayList<Contacts> list) {
@@ -145,6 +148,7 @@ public class fileIO {
                 case 1:
                     try {
                         readAllNames(dir, filename);
+                        System.out.println();
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
@@ -154,6 +158,7 @@ public class fileIO {
                     ArrayList<String> stringContacts = contactsToString(contacts);
                     try {
                         addContactstoFile(stringContacts, dir, filename);
+                        System.out.println();
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
