@@ -17,7 +17,6 @@ public class fileIO {
     public static String filename = "contacts.txt";
 
 
-
     // checks to see if a file and dir has been created. if not it makes it
     public static void createFileIfNoExists(String dir, String fileName){
         Path dataDirectory = Paths.get(dir);
@@ -35,11 +34,13 @@ public class fileIO {
     }
 
     public static boolean findName(String dir,String dataFile, String search)throws IOException{
+        search = search.toLowerCase();
         Path filePath = Paths.get(dir, dataFile);
         List<String> list = Files.readAllLines(filePath);
 
         for (String item :list){
-            if (item.contains(search)){
+            String lowerCaseItem = item.toLowerCase();
+            if (lowerCaseItem.contains(search)){
                 System.out.println(item);
                 return true;
             }
@@ -79,7 +80,6 @@ public class fileIO {
         }
         return contactStrings;
     }
-
 
     public static void addContactstoFile(ArrayList<String> list, String dir, String filename) throws IOException {
         Path filepath = Paths.get(dir, filename);
