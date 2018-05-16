@@ -34,15 +34,17 @@ public class fileIO {
         }
     }
 
-    public static void findName(String dir,String dataFile, String search)throws IOException{
+    public static boolean findName(String dir,String dataFile, String search)throws IOException{
         Path filePath = Paths.get(dir, dataFile);
         List<String> list = Files.readAllLines(filePath);
 
         for (String item :list){
             if (item.contains(search)){
                 System.out.println(item);
+                return true;
             }
         }
+        return false;
     }
 
     public static void removeContact(String dir, String dataFile, String nameToRemove) throws IOException {
@@ -95,10 +97,26 @@ public class fileIO {
         Contacts contact;
 
         do {
-            String name = ui.getStringInput("Please enter contact name");
-            long phoneNumber = ui.getLonginput("Please enter contact's phone number");
-            contact = new Contacts(name, phoneNumber);
-            contacts.add(contact);
+            try {
+                String name = ui.getStringInput("Please enter contact name");
+
+                if (!findName(dir, filename, name)) {
+                    long phoneNumber = ui.getLonginput("Please enter contact's phone number");
+                    contact = new Contacts(name, phoneNumber);
+                    contacts.add(contact);
+                }
+                else if (findName(dir, filename, name)){
+                    System.out.println("Already exists");
+                    if (ui.yesNo("Would you like to overwrite?")){
+                        long phoneNumber = ui.getLonginput("Please enter contact's phone number");
+                        contact = new Contacts(name, phoneNumber);
+                        contacts.add(contact);
+                    }
+                }
+            }catch (java.io.IOException e){
+                System.out.println("wut");
+            }
+
         } while (ui.yesNo("Would you like to enter another contact?"));
 
         return contacts;
