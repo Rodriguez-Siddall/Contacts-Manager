@@ -1,5 +1,6 @@
 package scanner;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UI {
@@ -18,7 +19,13 @@ public class UI {
 
     public long getLonginput(String command) {
         System.out.println(command);
-        return scanner.nextLong();
+        try {
+            return scanner.nextLong();
+
+        } catch (InputMismatchException e){
+            System.out.println("You must enter a number\n");
+            return -1;
+        }
     }
 
     public boolean yesNo(String prompt) {

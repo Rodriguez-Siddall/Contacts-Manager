@@ -91,7 +91,7 @@ public class fileIO {
         System.out.println("3. Search a contact by name.");
         System.out.println("4. Delete an existing contact.");
         System.out.println("5. Exit");
-        int userInput = ui.getInt("Enter an option (1, 2, 3, 4 or 5:");
+        int userInput = ui.getInt("Enter an option (1, 2, 3, 4 or 5:\n");
 
             switch(userInput) {
                 case 1:
