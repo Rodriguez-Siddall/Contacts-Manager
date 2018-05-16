@@ -23,6 +23,6 @@ public class Contacts {
 
     @Override
     public String toString() {
-        return name + '|' + phoneNumber;
+        return String.format("%-20s  |  %-12s",name,phoneNumber);
     }
 }

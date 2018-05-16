@@ -12,6 +12,10 @@ public class UI {
         return scanner.next();
     }
 
+    public String getStringInput() {
+        return scanner.next();
+    }
+
     public long getLonginput(String command) {
         System.out.println(command);
         return scanner.nextLong();
@@ -25,6 +29,22 @@ public class UI {
         } else {
             return false;
         }
+    }
+
+    public int getInt() {
+        String ui = getStringInput();
+        try {
+            return Integer.valueOf(ui);
+        } catch (NumberFormatException e){
+            System.out.println(e);
+            System.out.println("Your input is not an integer");
+            return getInt("Please enter an integer");
+        }
+    }
+
+    public int getInt(String prompt) {
+        System.out.print(prompt);
+        return getInt();
     }
 
 }

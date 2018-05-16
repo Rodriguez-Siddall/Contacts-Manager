@@ -41,6 +41,16 @@ public class fileIO {
         }
     }
 
+    public static void readAllNames(String dir,String dataFile)throws IOException{
+        Path filePath = Paths.get(dir, dataFile);
+        List<String> list = Files.readAllLines(filePath);
+
+        for (String item :list){
+                System.out.println(item);
+        }
+    }
+
+
     public static void addContactstoFile(ArrayList<Contacts> list, String dir, String filename) throws IOException {
         ArrayList<String> contactStrings = new ArrayList<>();
         for (Contacts contact : list){
@@ -71,18 +81,47 @@ public class fileIO {
         UI ui = new UI();
         String dir = "contacts";
         String filename = "contacts.txt";
+        ArrayList<Contacts> contacts;
+
         //the ui.getStringInput is from ui.java and is your run of the
         // mill sting scanner function.
+    do {
+        System.out.println("1. View contacts.");
+        System.out.println("2. Add a new contact.");
+        System.out.println("3. Search a contact by name.");
+        System.out.println("4. Delete an existing contact.");
+        System.out.println("5. Exit");
+        int userInput = ui.getInt("Enter an option (1, 2, 3, 4 or 5:");
 
-        ArrayList<Contacts> contacts = makeContactList();
-        System.out.println(contacts);
-
-        try {
-            addContactstoFile(contacts, dir, filename);
-            findName(dir, filename, ui.getStringInput("Enter the name of the contact you want to find"));
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-        }
-
+            switch(userInput) {
+                case 1:
+                    try {
+                        readAllNames(dir, filename);
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 2:
+                    contacts = makeContactList();
+                    try {
+                        addContactstoFile(contacts, dir, filename);
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 3:
+                    try {
+                        findName(dir, filename, ui.getStringInput("Enter the name of the contact you want to find"));
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 4:
+                    System.out.println("Need to make delete option");
+                    break;
+                case 5:
+                    System.exit(0);
+            }
+        } while (true);
     }
 }
