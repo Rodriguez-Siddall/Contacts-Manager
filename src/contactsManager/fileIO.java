@@ -28,9 +28,14 @@ public class fileIO {
         }
     }
 
-    public static void addContactstoFile(ArrayList<String> list, String dir, String filename) throws IOException {
+    public static void addContactstoFile(ArrayList<Contacts> list, String dir, String filename) throws IOException {
+        ArrayList<String> contactStrings = new ArrayList<>();
+        for (Contacts contact : list){
+            String contactString = contact.toString();
+            contactStrings.add(contactString);
+        }
         Path filepath = Paths.get(dir, filename);
-        Files.write(filepath, list, StandardOpenOption.APPEND);
+        Files.write(filepath, contactStrings, StandardOpenOption.APPEND);
     }
 
     public static ArrayList<Contacts> makeContactList() {
@@ -59,7 +64,11 @@ public class fileIO {
         ArrayList<Contacts> contacts = makeContactList();
         System.out.println(contacts);
 
-        addContactstoFile(contacts, dir, filename);
+        try {
+            addContactstoFile(contacts, dir, filename);
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }

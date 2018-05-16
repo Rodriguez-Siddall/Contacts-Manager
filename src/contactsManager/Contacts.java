@@ -21,6 +21,8 @@ public class Contacts {
         return phoneNumber;
     }
 
-
-
+    @Override
+    public String toString() {
+        return name + '|' + phoneNumber;
+    }
 }
