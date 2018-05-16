@@ -9,6 +9,7 @@ import java.nio.file.StandardOpenOption;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class fileIO {
 
@@ -26,6 +27,17 @@ public class fileIO {
 
         }catch (IOException e){
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void findName(String dir,String dataFile, String search)throws IOException{
+        Path filePath = Paths.get(dir, dataFile);
+        List<String> list = Files.readAllLines(filePath);
+
+        for (String item :list){
+            if (item.contains(search)){
+                System.out.println(item);
+            }
         }
     }
 
@@ -67,6 +79,7 @@ public class fileIO {
 
         try {
             addContactstoFile(contacts, dir, filename);
+            findName(dir, filename, ui.getStringInput("Enter the name of the contact you want to find"));
         } catch(IOException e) {
             System.out.println(e.getMessage());
         }
