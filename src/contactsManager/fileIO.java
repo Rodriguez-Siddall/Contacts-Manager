@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class fileIO {
+    public static int itemID;
+    public static String dir = "contacts";
+    public static String filename = "contacts.txt";
+
 
 
     // checks to see if a file and dir has been created. if not it makes it
@@ -41,6 +45,21 @@ public class fileIO {
         }
     }
 
+    public static void removeContact(String dir, String dataFile, String nameToRemove) throws IOException {
+        Path filePath = Paths.get(dir, dataFile);
+        List<String> list = Files.readAllLines(filePath);
+
+        for (String item : list) {
+            if (item.contains(nameToRemove)) {
+                itemID = list.indexOf(item);
+            }
+        }
+
+        list.remove(itemID);
+
+        addContactstoFile(list, dir, filename);
+    }
+
     public static void readAllNames(String dir,String dataFile)throws IOException{
         Path filePath = Paths.get(dir, dataFile);
         List<String> list = Files.readAllLines(filePath);
@@ -50,15 +69,24 @@ public class fileIO {
         }
     }
 
-
-    public static void addContactstoFile(ArrayList<Contacts> list, String dir, String filename) throws IOException {
+    public static ArrayList<String> contactsToString(ArrayList<Contacts> list) {
         ArrayList<String> contactStrings = new ArrayList<>();
         for (Contacts contact : list){
             String contactString = contact.toString();
             contactStrings.add(contactString);
         }
+        return contactStrings;
+    }
+
+
+    public static void addContactstoFile(ArrayList<String> list, String dir, String filename) throws IOException {
         Path filepath = Paths.get(dir, filename);
-        Files.write(filepath, contactStrings, StandardOpenOption.APPEND);
+        Files.write(filepath, list, StandardOpenOption.APPEND);
+    }
+
+    public static void addContactstoFile(List<String> list, String dir, String filename) throws IOException {
+        Path filepath = Paths.get(dir, filename);
+        Files.write(filepath, list);
     }
 
     public static ArrayList<Contacts> makeContactList() {
@@ -79,8 +107,6 @@ public class fileIO {
 
     public static void main(String[] args) {
         UI ui = new UI();
-        String dir = "contacts";
-        String filename = "contacts.txt";
         ArrayList<Contacts> contacts;
 
         //the ui.getStringInput is from ui.java and is your run of the
@@ -103,8 +129,9 @@ public class fileIO {
                     break;
                 case 2:
                     contacts = makeContactList();
+                    ArrayList<String> stringContacts = contactsToString(contacts);
                     try {
-                        addContactstoFile(contacts, dir, filename);
+                        addContactstoFile(stringContacts, dir, filename);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
@@ -117,7 +144,11 @@ public class fileIO {
                     }
                     break;
                 case 4:
-                    System.out.println("Need to make delete option");
+                    try {
+                        removeContact(dir, filename, ui.getStringInput("Enter the name of the contact you want to delete"));
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 5:
                     System.exit(0);

@@ -3,8 +3,6 @@ package contactsManager;
 import java.util.Scanner;
 
 public class Contacts {
-
-
     String name;
     long phoneNumber;
 

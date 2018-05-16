@@ -1,13 +1,7 @@
 Ronald McDonald       |  1234567
-Gary Oldman           |  987654      
 Cindy Lou Who         |  2345678     
 Emily Rodriguez       |  9565302115  
-John Lennon           |  2345678     
-buzz killington       |  1234567890  ###-###-####  1,234,567,890
-K;LJ;KJ               |  -1  ###-###-####  -1
-sdf                   |  -1  ###-###-####  -1
-asdfasd               |  -1  ###-###-####  -1
-billy ashford         |  1234567  ###-###-####  1,234,567
+John Lennon           |  2345678
 lksdjf;asdlFJ         |  123-456-67890
 ;asldfjk              |  123-567     
 testy mc testerson    |  123-4567    
