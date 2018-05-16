@@ -66,6 +66,10 @@ public class fileIO {
         Path filePath = Paths.get(dir, dataFile);
         List<String> list = Files.readAllLines(filePath);
 
+
+        System.out.println();
+        System.out.println(String.format("%-20s | %-12s |" , "Name", "Phone Number"));
+        System.out.println("------------------------------------|");
         for (String item :list){
                 System.out.println(item);
         }

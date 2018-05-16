@@ -39,6 +39,6 @@ public class Contacts {
 
     @Override
     public String toString() {
-        return String.format("%-20s  |  %-12s", name, convertNumber(phoneNumber));
+        return String.format("%-20s | %-20s |", name, convertNumber(phoneNumber));
     }
 }
