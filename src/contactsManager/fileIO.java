@@ -109,16 +109,15 @@ public class fileIO {
         do {
             try {
                 String name = ui.getStringInput("Please enter contact name");
-
-                if (!findName(dir, filename, name)) {
+                boolean nameExists = findName(dir, filename, name);
+                if (!nameExists) {
                     long phoneNumber = ui.getLonginput("Please enter contact's phone number");
                     contact = new Contacts(name, phoneNumber);
                     contacts.add(contact);
-                }
-                else if (findName(dir, filename, name)){
-                    removeContact(dir, filename, name);
+                } else if (nameExists) {
                     System.out.println("Already exists");
                     if (ui.yesNo("Would you like to overwrite?")){
+                        removeContact(dir, filename, name);
                         long phoneNumber = ui.getLonginput("Please enter contact's phone number");
                         contact = new Contacts(name, phoneNumber);
                         contacts.add(contact);
