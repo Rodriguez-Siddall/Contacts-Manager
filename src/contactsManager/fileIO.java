@@ -15,6 +15,17 @@ public class fileIO {
     public static int itemID;
     public static String dir = "contacts";
     public static String filename = "contacts.txt";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[46m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[47m";
 
 
     // checks to see if a file and dir has been created. if not it makes it
@@ -41,13 +52,13 @@ public class fileIO {
         for (String item :list){
             String lowerCaseItem = item.toLowerCase();
             if (lowerCaseItem.contains(search)){
-                System.out.println(item);
+                System.out.println(ANSI_GREEN + item + ANSI_RESET);
                 System.out.println();
                 return true;
             }
         }
         System.out.println();
-        System.out.println("Contact not found");
+        System.out.println(ANSI_YELLOW + "Contact not found" + ANSI_RESET);
         System.out.println();
         return false;
     }
@@ -74,12 +85,12 @@ public class fileIO {
 
 
         System.out.println();
-        System.out.println(String.format("%-20s | %-20s |" , "Name", "Phone Number"));
+        System.out.println(String.format(ANSI_BLUE + "%-20s | %-20s |" , "Name", "Phone Number"));
         System.out.println("--------------------------------------------|");
         for (String item :list){
                 System.out.println(item);
         }
-        System.out.println();
+        System.out.println(ANSI_RESET);
     }
 
     public static ArrayList<String> contactsToString(ArrayList<Contacts> list) {
@@ -108,17 +119,27 @@ public class fileIO {
 
         do {
             try {
-                String name = ui.getStringInput("Please enter contact name");
+                String name = ui.getStringInput(ANSI_CYAN + "Please enter contact name");
                 boolean nameExists = findName(dir, filename, name);
                 if (!nameExists) {
-                    long phoneNumber = ui.getLonginput("Please enter contact's phone number");
+                    long phoneNumber = ui.getLonginput(ANSI_CYAN + "Please enter contact's phone number" + ANSI_RESET);
+                    int length = String.valueOf(phoneNumber).length();
+                    if (length != 10 || length != 7) {
+                        System.out.println(ANSI_RED + "That is not a valid phone number");
+                        phoneNumber = ui.getLonginput(ANSI_CYAN + "Please enter contact's phone number" + ANSI_RESET);
+                    }
                     contact = new Contacts(name, phoneNumber);
                     contacts.add(contact);
                 } else if (nameExists) {
-                    System.out.println("Already exists");
-                    if (ui.yesNo("Would you like to overwrite?")){
+                    System.out.println(ANSI_RED + "Already exists" + ANSI_RESET);
+                    if (ui.yesNo(ANSI_YELLOW + "Would you like to overwrite?" + ANSI_RESET)){
                         removeContact(dir, filename, name);
-                        long phoneNumber = ui.getLonginput("Please enter contact's phone number");
+                        long phoneNumber = ui.getLonginput(ANSI_CYAN + "Please enter contact's phone number" + ANSI_RESET);
+                        int length = String.valueOf(phoneNumber).length();
+                        if (length > 10 || length < 7) {
+                            System.out.println(ANSI_RED + "That is not a valid phone number");
+                            phoneNumber = ui.getLonginput(ANSI_CYAN + "Please enter contact's phone number" + ANSI_RESET);
+                        }
                         contact = new Contacts(name, phoneNumber);
                         contacts.add(contact);
                     }
@@ -127,7 +148,7 @@ public class fileIO {
                 System.out.println("wut");
             }
 
-        } while (ui.yesNo("Would you like to enter another contact?"));
+        } while (ui.yesNo(ANSI_CYAN + "Would you like to enter another contact?" + ANSI_RESET));
 
         return contacts;
     }
@@ -140,12 +161,12 @@ public class fileIO {
         //the ui.getStringInput is from ui.java and is your run of the
         // mill sting scanner function.
     do {
-        System.out.println("1. View contacts.");
-        System.out.println("2. Add a new contact.");
-        System.out.println("3. Search a contact by name.");
-        System.out.println("4. Delete an existing contact.");
-        System.out.println("5. Exit");
-        int userInput = ui.getInt("Enter an option (1, 2, 3, 4 or 5:)\n");
+        System.out.println(ANSI_BLUE + "1. View contacts." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "2. Add a new contact." + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "3. Search a contact by name." + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "4. Delete an existing contact." + ANSI_RESET);
+        System.out.println(ANSI_RED + "5. Exit" + ANSI_RESET);
+        int userInput = ui.getInt(ANSI_PURPLE + "Enter an option (1, 2, 3, 4 or 5:)\n" + ANSI_RESET);
 
             switch(userInput) {
                 case 1:
@@ -168,14 +189,15 @@ public class fileIO {
                     break;
                 case 3:
                     try {
-                        findName(dir, filename, ui.getStringInput("Enter the name of the contact you want to find"));
+                        findName(dir, filename, ui.getStringInput(ANSI_GREEN + "Enter the name of the contact you want to find" + ANSI_RESET));
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case 4:
                     try {
-                        removeContact(dir, filename, ui.getStringInput("Enter the name of the contact you want to delete"));
+                        removeContact(dir, filename, ui.getStringInput(ANSI_YELLOW + "Enter the name of the contact you want to delete" + ANSI_RESET));
+                        System.out.println(ANSI_RED + "Contact has been deleted" + ANSI_RESET);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
