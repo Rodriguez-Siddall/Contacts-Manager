@@ -116,6 +116,7 @@ public class fileIO {
                     contacts.add(contact);
                 }
                 else if (findName(dir, filename, name)){
+                    removeContact(dir, filename, name);
                     System.out.println("Already exists");
                     if (ui.yesNo("Would you like to overwrite?")){
                         long phoneNumber = ui.getLonginput("Please enter contact's phone number");
