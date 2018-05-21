@@ -1,3 +1,5 @@
 Freddy Kruger        | 666-666-6666         |
 Alex                 | 956-607-0353         |
 Bobby Flay           | 123-4567             |
+Jenny                | 867-5309             |
+Emily                | 123-4567             |

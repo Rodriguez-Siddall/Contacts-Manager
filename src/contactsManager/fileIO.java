@@ -54,7 +54,7 @@ public class fileIO {
             }
         }
         System.out.println();
-        System.out.println(ANSI_YELLOW + "Contact not found" + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Contact does not exist" + ANSI_RESET);
         System.out.println();
         return false;
     }
@@ -120,7 +120,7 @@ public class fileIO {
                 if (!nameExists) {
                     long phoneNumber = ui.getLonginput(ANSI_CYAN + "Please enter contact's phone number" + ANSI_RESET);
                     int length = String.valueOf(phoneNumber).length();
-                    if (length != 10 || length != 7) {
+                    if (length > 10 || length < 7 || length == 8 || length == 9) {
                         System.out.println(ANSI_RED + "That is not a valid phone number");
                         phoneNumber = ui.getLonginput(ANSI_CYAN + "Please enter contact's phone number" + ANSI_RESET);
                     }
